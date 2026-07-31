@@ -1,0 +1,19 @@
+Iniciar un servidor 
+node app.js
+
+para instalar dependencias o librerias
+npm install mas el nombre de la dependencias 
+npm install
+
+
+git 
+crear una rama git branch nombre_de_rama
+
+crear rama e ingresar: git checkout -b nombre_de_rama
+
+
+ver cofinguracion de git 
+git config --global
+
+borrar 
+git config --global --unset 
