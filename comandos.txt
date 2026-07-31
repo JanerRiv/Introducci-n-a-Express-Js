@@ -17,3 +17,8 @@ git config --global
 
 borrar 
 git config --global --unset 
+
+
+configuracion de variables de entorno 
+
+node --watch app.js
