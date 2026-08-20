@@ -48,7 +48,79 @@ app.get("/productos/:categoria/:id", (req, res) => {
 });
 
 
-app.listen(port, () => {
-console.log( `Servidor en funcionamiento en el puerto: http://localhost:${port}`);
+
+
+
+//4 Parametros combinados con Query 
+
+app.get ("/usuarios/:id/posts", (req,res) => {
+    
+        const id = req.params.id;
+        const orden = req.query.orden;
+
+    res.json({
+        usuario:id,
+        orden:orden,
+        publicaciones: [
+            "Primera publicacion",
+            "segunda publicacion",
+            "tercera publicacion"
+        ]
+    });
 });
 
+
+// 5. Parámetros combinados con Query
+
+app.get("/usuarios/:id/:posts_id/comentarios", (req, res) => {
+
+    const id = req.params.id;
+    const posts_id = req.params.posts_id;
+    const orden = req.query.orden;
+
+    res.json({
+        usuario: id,
+        post: posts_id,
+        orden: orden,
+        comentarios: [
+            "Primer comentario",
+            "Segundo comentario",
+            "Tercer comentario"
+        ]
+    });
+
+});
+
+// 6. Validación y manejo de recursos no encontrados
+
+const libros = [
+    {
+        isbn: "123",
+        nombre: "Noches Blancas"
+    },
+    {
+        isbn: "456",
+        nombre: "Divina Comedia"
+    },
+    {
+        isbn: "789",
+        nombre: "Cartas al Padre"
+    }
+];
+
+app.get("/libros/:isbn", (req, res) => {
+
+    const isbn = req.params.isbn;
+
+    const libro = libros.find(libro => libro.isbn === isbn);
+
+    if (!libro) {
+        return res.status(404).send("Libro no encontrado");
+    }
+
+    res.json(libro);
+
+});
+
+app.listen(port, () => {
+console.log( `Servidor en funcionamiento en el puerto: http://localhost:${port}`);});
