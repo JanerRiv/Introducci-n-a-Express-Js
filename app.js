@@ -1,49 +1,66 @@
-import express from 'express';
-
-import "dotenv/config";
-
+const express = require('express');
 const app = express();
-const port = process.env.PUERTO || 3000;
+require('dotenv').config();
+const port = 3000;
 
-app.get("/", (_, res) => {
-res.send('Aprendicez ficha 3407186 SENA');
+
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+
+app.get("/", (req, res) => {
+res.send('Aprendicez ficha 3407186');
 });
 
-app.get("/ruta1", (req,res)=> {
-    //temploate string
-    res.send(`<h1>usando res.send </h1>`)
-})
 
-app.get("/ruta2", (req,res)=> {
-    //temploate string
-    res.json({
-        "dev":"node --watch app.js",
-        "start":"node app.js"
+
+app.get("/api/aprendices", (req,res) => {
+    res.json(200)({
+        'mensaje':'Listado de aprendices'
     })
 })
 
-app.get("/ruta3/:nombre/:apellido", (req,res)=> {
-    let nameUsuario = req.params.nombre
-    let lastUsuario = req.params.apellido
-    res.json({"usuario": nameUsuario,
-            "apellido":lastUsuario
+app.get("/api/aprendices/:id", (req,res) => {
+    res.json(200)({
+        'mensaje':'Listar aprendiz'
+    })
+})
+ 
+app.post("/api/aprendices", (req,res) => {
+    res.status(201).json({
+        'mensaje':'crear aprendices'
     })
 })
 
+app.put("/api/aprendices/:id", (req,res) => {
+    res.status(200).json({
+        'mensaje':'editar aprendices'
+    })
+})
 
-//ruta con parametros de consulta query
-app.get("/ruta4", (req,res)=> {
-    const numero = req.query.phone 
-    const orden = req.query.orden || "sin orden"
-    const pagina = req.query.pagina || 1
-    res.send(`<h1>Listado aprendices</h1>
-        <h2>El listado en orden ${orden}</h2>
-        <p>Pagina: ${pagina}</p>
-        <h3>Numero: ${numero}</h3> 
-        `)
+app.delete("/api/aprendices/:id", (req,res) => {
+    res.status(200).json({
+        'mensaje':'eliminar aprendices'
+    })
+})
+
+app.post("/rutajson", (req,res) => {
+    const todosDatos = req.body
+    const edad = todosDatos.edad
+    if (edad >= 18) {res.json({mensaje:"es mayor"})
+    }else {
+        res.json({mensaje:"es menor"})
+    }
+        
+})
+
+app.post("/rutaFormulario", (req,res) => {
+    const formulario = req.body
+    const programa = req.body.programa
+
+    res.json({formulario: formulario, My_programa: programa})
+        
 })
 
 app.listen(port, () => {
-console.log( `Servidor en funcionamiento en el puerto: http://localhost:${port}`);
+console.log( `SERVIDOR: http://localhost:${port}`);
 });
-
