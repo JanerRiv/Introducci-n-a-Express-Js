@@ -9,9 +9,15 @@
   {
     "id": 1,
     "nombre": "esteban castrillon",
-    
     "correo ": "esteban@gmail.com",
     "imagen": "/imagenes/mifoto.png",
     "clave": "xxx"
+  },
+  {
+    "id": "1",
+    "nombre": "janer rivas",
+    "correo": "janercillopillo@gmail.com",
+    "clave": "123456",
+    "imagen": "/misImagenes/function now() { [native code] }.jpg"
   }
 ]

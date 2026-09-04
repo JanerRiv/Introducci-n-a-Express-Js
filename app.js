@@ -1,8 +1,10 @@
+
 const { error } = require('console');
 const express = require('express');
 const app = express();
 require('dotenv').config();
 const port = 3000;
+
 
 //leer archivo
 
@@ -10,7 +12,23 @@ const sistemaActivo = require("fs");
 const ruta =require("path");
 const { json } = require('stream/consumers');
 const rutaArchivo = ruta.join(__dirname,"datos.json")
+//libreria para subir archivos
 
+const multer = require("multer")
+
+//configurar almacenamiento de archivos
+
+const almacenamiento = multer.diskStorage({
+    destination:(req,file,cb) => {
+        cb(null, "misImagenes/" )
+    },
+    filename: (req,file,cb)=>{
+        const extension = ruta.extname (file.originalname)
+        cb(null, `${Date.now}${extension}`)
+    }
+})
+
+const cargar = multer ({storage: almacenamiento })
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -30,6 +48,8 @@ app.get("/api/aprendices", (req,res) => {
         const listaAprendices = JSON.parse(datos)
         res.status(200).json({
         'mensaje':listaAprendices})
+
+
     })
 })
 
@@ -40,8 +60,12 @@ app.get("/api/aprendices/:id", (req,res) => {
 })
  
 
-app.post("/api/aprendices", (req,res) => {
+app.post("/api/aprendices", cargar.single("imagen"),(req,res) => {
     const datosAprendiz = req.body
+    //agregar la ruta de la imagen
+
+    datosAprendiz.imagen = req.file? `/misImagenes/${req.file.filename}` :"sin imagen"
+    
     //leer archivo
     sistemaActivo.readFile(rutaArchivo,"utf-8",(error,datos)=> {
         if (error) { 
