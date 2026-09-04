@@ -39,6 +39,7 @@ app.get("/api/aprendices/:id", (req,res) => {
     })
 })
  
+
 app.post("/api/aprendices", (req,res) => {
     const datosAprendiz = req.body
     //leer archivo
