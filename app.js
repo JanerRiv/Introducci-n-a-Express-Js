@@ -5,6 +5,28 @@ const app = express();
 require('dotenv').config();
 const port = 3000;
 
+//importacion de modulo
+const registro = require('./middleware/registroMiddleware.js')
+
+
+
+
+
+// middleware para parseas datos del body
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+
+//middleware propios
+//este middleware se ejecuta simpre que se ha una peticion sea (GET,POST,PUT-PATCH O DELETE)
+app.use((req,res,next)=>{
+    console.log(`Tiempo en milisegundos:${Date.now()}`)
+    console.log(`Fecha:${new Date().toISOString()}`)
+    next()
+
+})
+
+//usar el historial peticiones
+app.use(registro)
 
 //leer archivo
 
@@ -30,8 +52,6 @@ const almacenamiento = multer.diskStorage({
 
 const cargar = multer ({storage: almacenamiento })
 
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
 
 app.get("/", (req, res) => {
 res.send('Aprendicez ficha 3407186');
@@ -61,6 +81,10 @@ app.get("/api/aprendices/:id", (req,res) => {
  
 
 app.post("/api/aprendices", cargar.single("imagen"),(req,res) => {
+    //Validar datos 
+
+
+
     const datosAprendiz = req.body
     //agregar la ruta de la imagen
 
@@ -96,23 +120,7 @@ app.delete("/api/aprendices/:id", (req,res) => {
     })
 })
 
-app.post("/rutajson", (req,res) => {
-    const todosDatos = req.body
-    const edad = todosDatos.edad
-    if (edad >= 18) {res.json({mensaje:"es mayor"})
-    }else {
-        res.json({mensaje:"es menor"})
-    }
-        
-})
 
-app.post("/rutaFormulario", (req,res) => {
-    const formulario = req.body
-    const programa = req.body.programa
-
-    res.json({formulario: formulario, My_programa: programa})
-        
-})
 
 app.listen(port, () => {
 console.log( `SERVIDOR: http://localhost:${port}`);

@@ -19,5 +19,20 @@
     "correo": "janercillopillo@gmail.com",
     "clave": "123456",
     "imagen": "/misImagenes/function now() { [native code] }.jpg"
+  },
+  {
+    "imagen": "sin imagen"
+  },
+  {
+    "nombre": "janer",
+    "edad": "18",
+    "correo": "janerexample@gmail.com",
+    "imagen": "sin imagen"
+  },
+  {
+    "nombre": "janer",
+    "edad": "18",
+    "correo": "janerexample@gmail.com",
+    "imagen": "sin imagen"
   }
 ]
