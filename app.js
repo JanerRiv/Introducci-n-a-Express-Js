@@ -2,12 +2,13 @@
 const { error } = require('console');
 const express = require('express');
 const app = express();
+
 require('dotenv').config();
-const port = 3000;
+const port = process.env.PUERTO || 3030
 
 //importacion de modulo
 const registro = require('./middleware/registroMiddleware.js')
-
+const manejoerror = require ('./middleware/manejadorErrores.js')
 
 
 
@@ -27,6 +28,7 @@ app.use((req,res,next)=>{
 
 //usar el historial peticiones
 app.use(registro)
+//usar para el manejo de errores
 
 //leer archivo
 
@@ -121,7 +123,21 @@ app.delete("/api/aprendices/:id", (req,res) => {
 })
 
 
+//Error provocado
+app.get("/error",(req,res,next)=>{
+    next(new Error("Error intencional de mi app"))
+
+})
+
+//ruta proyegida
+app.get("/api/rutaprotegida",(req,res,) =>{
+    res.status(200).json({mensaje:"Esta es mi ruta protegida"})
+})
+
+
+app.use(manejoerror)
 
 app.listen(port, () => {
 console.log( `SERVIDOR: http://localhost:${port}`);
 });
+
