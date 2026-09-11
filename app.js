@@ -5,10 +5,11 @@ const app = express();
 
 require('dotenv').config();
 const port = process.env.PUERTO || 3030
-
+const jwt =require("jsonwebtoken")
 //importacion de modulo
 const registro = require('./middleware/registroMiddleware.js')
 const manejoerror = require ('./middleware/manejadorErrores.js')
+const autenticacion = require('./middleware/autenticacion.js')
 
 
 
@@ -130,10 +131,38 @@ app.get("/error",(req,res,next)=>{
 })
 
 //ruta proyegida
-app.get("/api/rutaprotegida",(req,res,) =>{
-    res.status(200).json({mensaje:"Esta es mi ruta protegida"})
+app.get("/api/rutaprotegida",autenticacion,(req,res,) =>{
+    res.header
 })
 
+//login, inisio de sesion
+app.post("/api/login", (req, res) => {
+    // Simular datos de la BD 
+    const usuarioBd = {
+        "usuario": "janer",
+        "clave": "abc123"
+    };
+    
+   
+    const { usuario, clave } = req.body || {};
+    
+    // Validar datos 
+    if (!usuario || !clave || usuario !== usuarioBd.usuario || clave !== usuarioBd.clave) {
+       
+        return res.status(400).json({ mensaje: "Credenciales no válidas, usuario o clave incorrectos" });
+    }
+    
+    // Crear una variable para almacenar el token 
+    const token = jwt.sign(
+        
+        { "usuario": usuario },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+    );
+    
+    
+    res.json({ token });
+});
 
 app.use(manejoerror)
 

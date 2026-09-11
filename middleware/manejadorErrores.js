@@ -23,6 +23,7 @@ const manejadorErrores = (error, req, res, next) => {
         // Dependiendo si estamos en desarrollo o producción
         ...(process.env.NODE_ENV === "development" && { stack: error.stack })
     });
+    next ()
 };
 
 module.exports = manejadorErrores;
