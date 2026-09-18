@@ -7,9 +7,9 @@ require('dotenv').config();
 const port = process.env.PUERTO || 3030
 const jwt =require("jsonwebtoken")
 //importacion de modulo
-const registro = require('./middleware/registroMiddleware.js')
-const manejoerror = require ('./middleware/manejadorErrores.js')
-const autenticacion = require('./middleware/autenticacion.js')
+const registro = require('./src/middleware/registroMiddleware.js')
+const manejoerror = require ('./src/middleware/manejadorErrores.js')
+const autenticacion = require('./src/middleware/autenticacion.js')
 
 
 
