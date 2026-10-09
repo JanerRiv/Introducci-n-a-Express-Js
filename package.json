@@ -23,5 +23,11 @@
   "bugs": {
     "url": "https://github.com/JanerRiv/Introducci-n-a-Express-Js.git"
   },
-  "homepage": "https://github.com/JanerRiv/Introducci-n-a-Express-Js.git#readme"
+  "homepage": "https://github.com/JanerRiv/Introducci-n-a-Express-Js.git#readme",
+  "devDependencies": {
+    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/client": "^7.10.0",
+    "prisma": "^7.10.0",
+    "tsx": "^4.23.15"
+  }
 }

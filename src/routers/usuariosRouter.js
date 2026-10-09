@@ -1,9 +1,12 @@
 const {Router} = require("express")
 const enrutador = Router()
-const listarUsuariosController = require('../controllers/listarUsuariosController')
+const {mostrarUsuarios, registrarController, loginController} = require('../controllers/listarUsuariosController')
 
 
 //funcion (req,res) debe ir en el controlador 
-enrutador.get("/rutaUsuarios",listarUsuariosController)
+enrutador.get ("/listado", mostrarUsuarios)
+enrutador.get ("/registrar",registrarController)
+enrutador.get ("/login",loginController)
+
 
 module.exports = enrutador
